@@ -1,0 +1,15 @@
+reemplazar variables en etiquetas html
+
+const nombre = 'shenick'
+
+const h1Tag = <h1>hola mi nombre es {nombre}</h1>
+las llaves nos indican que ese atributo sera sustituido por el js
+
+ReactDOM.render( h1Tag, divRoot )
+este atributo nos renderiza el js en el selector html donde indicamos
+
+Babel
+nos permite utilizar caracteristicas actuales de js en navegadores viejitos
+
+react lo utiliza de background
+https://babeljs.io/
