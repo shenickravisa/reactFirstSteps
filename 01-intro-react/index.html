@@ -13,14 +13,19 @@
 <body>
 
     <div id="root"></div>
+    <div id="root2"></div>
 
     <script type="text/babel">
 
         //hacer referencia al elemento
         const divRoot = document.querySelector('#root')
+        const divRoot2 = document.querySelector('#root2')
         const nombre = 'shenick'
+        let isHtml = '<h1>hi i am html inserted</h1>'
         const h1Tag = <h1> hola yo soy {nombre} </h1>
+        const h2Tag = <div dangerouslySetInnerHTML={{__html: isHtml}}></div>
         ReactDOM.render( h1Tag, divRoot )
+        ReactDOM.render( h2Tag, divRoot2 )
         // renderiza la etiqueta h1 en el div root
     </script>
 

@@ -1,0 +1,13 @@
+npx --version node check
+verificamos la version de react
+
+crear aplicacion react 
+npx create-react-app {name of the app}
+
+use sass on react app
+npm install node-sass
+
+para correr una app de react hay que usar
+yarn start
+
+descripcion general del proyecto
