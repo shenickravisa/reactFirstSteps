@@ -1,0 +1,37 @@
+Que es un componente ?
+R.= un componente es una pieza de codigo encapsulada re-utilizable que puede tener un estado o no
+es una buena practica que los componentes se use UpperCamelCase
+
+que es un estado ?
+R.= cuando es renderizado un componente por primera vez tiene un estado incial, cada vez que el usuario escribe algo o modifica
+el estado cambia
+
+Estructura de directorios
+public /manifest.json
+configuracion de pwa
+
+public /robots.txt
+configuracion inicial cuando se despliegue los robots de google leeran estas configuraciones
+
+public /index.html
+meta theme-color => celular pwa barra de color
+rel manifest => pwa 
+public es el archivo inicial de nuestra aplicacion react
+noscript => por si un navegador no corre o tiene habilitado js
+
+.gitignore => archivos o carpetas que son ignoradas por git para no subir
+
+package.json => modulo de dependencias y configuraciones por webpack
+scripts - start => levanta servidor esucha cambios corre babel
+scripts - build => prepara la aplicacion optimizada para correr la app
+script - test => levanta el servicio de pruebas
+script - eject => por defecto toma el index.html directo son configuraciones por default si se toca toda la configuracion queda manual
+yarn.lock => define todas las versiones en especifico de las dependencias utilizadas
+
+----------------------------------------------------------------------------------------------------
+src/
+app.css => archivo de estilos inicial del componente
+index.css => archivo de estilos globales de la app
+app.test.js => npm run test => archivo para realizar pruebas
+index.js => punto inicial de la aplicacion vue equivalente main.js
+serviceWorker => pwa
