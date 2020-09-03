@@ -9,5 +9,6 @@ const divRoot = document.querySelector('#root')
 //ReactDom crea un arbol de componentes tambien facilita la comunicacion mas facil
 //para este ejercicio saludo no es un componente solo una etiqueta 
 
-ReactDOM.render(<App />, divRoot)
+ReactDOM.render(<App saludo2='' saludo3= ''/>, divRoot)
 
+// mandar numeros como prop = {}
