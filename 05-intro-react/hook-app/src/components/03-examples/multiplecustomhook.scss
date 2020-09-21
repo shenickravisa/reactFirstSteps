@@ -1,0 +1,9 @@
+.progress-contaier {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    span {
+        margin-top: 10px;
+    }
+}

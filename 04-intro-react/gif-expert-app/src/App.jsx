@@ -6,7 +6,8 @@ import "./App.scss";
 function App() {
   const [categories, setCategories] = useState([]);
   const addNewCategory = (value) => {
-    setCategories([value, ...categories]);
+    console.log(value,"nuevo valor")
+    setCategories([...categories, value]);
   };
 
   return (
