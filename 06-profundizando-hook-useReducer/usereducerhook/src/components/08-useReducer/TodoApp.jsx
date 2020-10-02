@@ -3,47 +3,57 @@ import { Container, Grid, Divider, Button, TextField } from "@material-ui/core";
 import { todoReducer } from "./todoReducer";
 import "./styles.sass";
 import { useReducer, useState, useEffect } from "react";
-const initialState = [
-  {
-    id: new Date().getTime(),
-    desc: "Aprender React",
-    done: false,
-  },
-  {
-    id: new Date().getTime(),
-    desc: "Aprender React",
-    done: false,
-  },
-];
+import useForm from "../../hooks/useForm";
+
+const init = () => {
+  return JSON.parse(localStorage.getItem("todos")) || [];
+  //cuando un localStorage tiene vacios retorna null
+};
 /**
  * punto inicial de la app
  */
 const TodoApp = () => {
+  const [{ description }, handleInputChange, resetValue] = useForm({
+    description: "",
+  });
   const [hideForm, setHideForm] = useState(false);
-  useEffect(() => {}, []);
 
   /**
    * inicializamos el reducer el cual tiene un estado inicial y la funcion reducer que esta en otro archivo
    */
-  const [todos, dispatch] = useReducer(todoReducer, initialState);
+  const [todos, dispatch] = useReducer(todoReducer, [], init);
   /**
    * el reducer debe ser la funcion reducer que se exporta (opcional)
    * el initialState es el estado inicial
    * init inicializar el state cada que el componente sea renderizado
    * dispatch dispara la accion al reducer es decir este manda la info al reducer
    * el useReducer cuando detecta un cambio se encarga de volver a redendizar
+   * init es una funcion computada que nos ayuda a que no se este ejecutando y ejecutando cada que el useReducer cambia
    */
 
+  useEffect(() => {
+    //si los efectos cambian se grabaran en el localStorage, localStorage solo graba strings
+    //recordando que useEffect se ejecuta una sola vez al principio al menos que tenga una dependencia que lo haga ejecutarse
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
+  const handleDelete = ({ id }) => {
+    const action = {
+      type: "delete",
+      playload: id,
+    };
+    dispatch(action);
+  };
+
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log("nueva tarea");
     setHideForm(!hideForm);
     /**
      * nuevo todo a almacenar
      */
     const newTodo = {
-      id: new Date().getTime,
-      desc: "nueva tarea",
+      id: new Date().getTime(),
+      desc: description,
       done: false,
     };
     /**
@@ -57,6 +67,8 @@ const TodoApp = () => {
      * con el dispatch le estamos enviando la info de action al todoReducer
      */
     dispatch(action);
+    //resetea el form desde useFormHook
+    resetValue();
   };
 
   return (
@@ -93,6 +105,9 @@ const TodoApp = () => {
                           }}
                           variant="contained"
                           color="primary"
+                          onClick={() => {
+                            handleDelete(todoItem);
+                          }}
                         >
                           Borrar
                         </Button>
@@ -111,8 +126,6 @@ const TodoApp = () => {
                       boxShadow: "none",
                       width: "100%",
                     }}
-                   
-                    color="#0000ff"
                     onClick={() => {
                       setHideForm(!hideForm);
                     }}
@@ -124,27 +137,40 @@ const TodoApp = () => {
                 <div>
                   <p>Agregar TODO</p>
                   <Divider></Divider>
-                  <form onSubmit={handleSubmit}>
-                    <TextField
-                      style={{ width: "100%" }}
-                      type="text"
-                      name="description"
-                      autoComplete="off"
-                      label="Nombre"
-                    />
-                    <Button
-                      style={{
-                        // backgroundColor: "#00ff00",
-                        width: "100%",
-                        margin: "10px 0 0 0",
-                        boxShadow: "none",
-                      }}
-                      variant="outlined"
-                      color="primary"
-                    >
-                      Agregar
-                    </Button>
-                  </form>
+
+                  <TextField
+                    style={{ width: "100%" }}
+                    type="text"
+                    name="description"
+                    autoComplete="off"
+                    label="Nombre"
+                    value={description}
+                    onChange={handleInputChange}
+                    onKeyPress={(event) => {
+                      if (!description) {
+                        return;
+                      }
+                      if (event.key === "Enter") {
+                        handleSubmit();
+                      }
+                    }}
+                  />
+                  <Button
+                    type="button"
+                    disabled={!description}
+                    onClick={() => {
+                      handleSubmit();
+                    }}
+                    style={{
+                      width: "100%",
+                      margin: "10px 0 0 0",
+                      boxShadow: "none",
+                    }}
+                    variant="outlined"
+                    color="primary"
+                  >
+                    Agregar
+                  </Button>
                 </div>
               )}
             </Grid>
@@ -163,3 +189,4 @@ export default TodoApp;
  * manejo de apps grandes useReducer
  *
  */
+
